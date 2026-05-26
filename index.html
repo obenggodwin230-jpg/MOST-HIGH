@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sabbat Church of God Most High</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --royal: #1A3A6B;
+      --royal-deep: #0D2347;
+      --royal-mid: #2A5298;
+      --royal-light: #3F6FC0;
+      --sky: #D6E4FF;
+      --sky-soft: #EBF2FF;
+      --white: #FFFFFF;
+      --off-white: #F8FAFF;
+      --text: #0D1F3C;
+      --text-mid: #3A5080;
+      --text-soft: #7A95C0;
+      --gold-accent: #C9A84C;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ── CROSS WATERMARK ── */
+    .cross-mark {
+      display: inline-block;
+      width: 36px; height: 36px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .cross-mark::before {
+      content: '✝';
+      font-size: 1.6rem;
+      color: var(--gold-accent);
+      line-height: 1;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,58,107,0.12);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 72px;
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-cross { font-size: 1.4rem; color: var(--royal); }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 700;
+      color: var(--royal-deep); line-height: 1.2;
+    }
+    .nav-name span {
+      display: block; font-size: 0.65rem; font-family: 'Jost', sans-serif;
+      font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-soft);
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a {
+      color: var(--text-mid); text-decoration: none;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--royal); }
+    .nav-cta {
+      background: var(--royal);
+      color: var(--white) !important;
+      padding: 9px 22px; border-radius: 2px;
+      transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--royal-mid) !important; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      background: var(--royal-deep);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 130px 5vw 80px;
+      position: relative; overflow: hidden;
+    }
+    /* Geometric divine light rays */
+    #hero::before {
+      content: '';
+      position: absolute; bottom: -10%; left: 50%; transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: conic-gradient(from 180deg at 50% 100%,
+        transparent 0deg,
+        rgba(42,82,152,0.35) 10deg,
+        transparent 20deg,
+        rgba(42,82,152,0.25) 30deg,
+        transparent 40deg,
+        rgba(42,82,152,0.3) 50deg,
+        transparent 60deg,
+        rgba(42,82,152,0.2) 70deg,
+        transparent 80deg,
+        rgba(42,82,152,0.3) 90deg,
+        transparent 100deg,
+        rgba(42,82,152,0.2) 110deg,
+        transparent 120deg
+      );
+      pointer-events: none;
+      z-index: 0;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(ellipse at 50% 30%, rgba(63,111,192,0.2) 0%, transparent 60%);
+      pointer-events: none; z-index: 0;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-emblem {
+      font-size: 4rem; margin-bottom: 1.5rem;
+      animation: fadeDown 0.8s ease both;
+      filter: drop-shadow(0 0 20px rgba(201,168,76,0.4));
+    }
+    .hero-verse {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 0.95rem; color: var(--gold-accent);
+      letter-spacing: 0.08em; margin-bottom: 1.5rem;
+      animation: fadeDown 0.8s 0.1s ease both;
+    }
+    #hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 7.5vw, 6.5rem);
+      font-weight: 700; line-height: 1.0;
+      color: var(--white);
+      max-width: 860px;
+      margin: 0 auto;
+      animation: fadeDown 0.8s 0.2s ease both;
+    }
+    #hero h1 em { color: var(--sky); font-style: normal; }
+    .hero-divider {
+      width: 60px; height: 2px;
+      background: var(--gold-accent);
+      margin: 2rem auto;
+      animation: fadeDown 0.8s 0.3s ease both;
+    }
+    #hero p.sub {
+      font-size: 1.05rem; color: rgba(214,228,255,0.8);
+      max-width: 540px; margin: 0 auto; line-height: 1.8;
+      animation: fadeDown 0.8s 0.35s ease both;
+    }
+    .hero-cta {
+      margin-top: 2.8rem;
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+      animation: fadeDown 0.8s 0.45s ease both;
+    }
+    .btn-white {
+      background: var(--white); color: var(--royal-deep);
+      padding: 14px 38px; border-radius: 2px;
+      font-weight: 600; font-size: 0.85rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white:hover { background: var(--sky); transform: translateY(-2px); }
+    .btn-ghost {
+      border: 1.5px solid rgba(214,228,255,0.4);
+      color: rgba(214,228,255,0.9);
+      padding: 13px 36px; border-radius: 2px;
+      font-weight: 500; font-size: 0.85rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--sky); color: var(--white); transform: translateY(-2px); }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      z-index: 2; animation: fadeDown 0.8s 0.7s ease both;
+    }
+    .scroll-cue span { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(214,228,255,0.35); }
+    .scroll-arrow {
+      width: 20px; height: 20px;
+      border-right: 1.5px solid rgba(214,228,255,0.35);
+      border-bottom: 1.5px solid rgba(214,228,255,0.35);
+      transform: rotate(45deg);
+      animation: arrowBounce 1.6s ease infinite;
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 100px 5vw; }
+    .tag {
+      display: inline-block;
+      font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--royal-mid);
+      border-left: 3px solid var(--gold-accent);
+      padding-left: 10px; margin-bottom: 1rem;
+    }
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700; line-height: 1.1;
+      color: var(--royal-deep);
+    }
+    .sec-title em { color: var(--royal-mid); font-style: italic; }
+
+    /* ── WELCOME ── */
+    #welcome {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .welcome-text p {
+      margin-top: 1.4rem; font-size: 1rem; color: var(--text-mid);
+      line-height: 1.85; max-width: 480px;
+    }
+    .welcome-quote {
+      background: var(--royal-deep);
+      border-radius: 4px; padding: 50px 44px;
+      position: relative; overflow: hidden;
+    }
+    .welcome-quote::before {
+      content: '"';
+      position: absolute; top: -10px; left: 24px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 10rem; font-weight: 700;
+      color: rgba(63,111,192,0.2); line-height: 1;
+      pointer-events: none;
+    }
+    .welcome-quote blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 1.55rem;
+      color: var(--white); line-height: 1.5;
+      position: relative; z-index: 1;
+    }
+    .welcome-quote cite {
+      display: block; margin-top: 1.2rem;
+      font-family: 'Jost', sans-serif; font-style: normal;
+      font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--gold-accent);
+    }
+
+    /* ── BELIEFS ── */
+    #beliefs { background: var(--off-white); }
+    .beliefs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .belief-card {
+      background: var(--white);
+      border-radius: 4px; padding: 36px 28px;
+      border-top: 3px solid var(--royal);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .belief-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(26,58,107,0.1); }
+    .belief-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .belief-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--royal-deep); margin-bottom: 0.7rem;
+    }
+    .belief-card p { font-size: 0.88rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* ── SABBATH BANNER ── */
+    #sabbath {
+      background: var(--royal);
+      padding: 90px 5vw;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .sabbath-text .tag { color: rgba(214,228,255,0.7); border-left-color: var(--gold-accent); }
+    .sabbath-text .sec-title { color: var(--white); }
+    .sabbath-text .sec-title em { color: var(--sky); }
+    .sabbath-text p { margin-top: 1.4rem; color: rgba(214,228,255,0.8); line-height: 1.85; font-size: 1rem; }
+    .sabbath-facts {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1px; background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 4px;
+      overflow: hidden;
+    }
+    .sab-fact {
+      background: rgba(13,35,71,0.5);
+      padding: 28px 24px;
+      text-align: center;
+    }
+    .sab-fact .ico { font-size: 1.8rem; margin-bottom: 0.6rem; }
+    .sab-fact h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; font-weight: 700;
+      color: var(--white); margin-bottom: 0.4rem;
+    }
+    .sab-fact p { font-size: 0.78rem; color: rgba(214,228,255,0.6); line-height: 1.5; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--white); }
+    .services-intro { max-width: 580px; margin-bottom: 3rem; }
+    .services-intro p { margin-top: 1rem; color: var(--text-mid); line-height: 1.7; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+    .service-card {
+      border: 1.5px solid var(--sky);
+      border-radius: 4px; padding: 32px 28px;
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: var(--royal);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { border-color: var(--royal-light); box-shadow: 0 12px 36px rgba(26,58,107,0.08); transform: translateY(-4px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-day {
+      font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold-accent); margin-bottom: 0.8rem;
+    }
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--royal-deep);
+      margin-bottom: 0.5rem;
+    }
+    .service-time {
+      font-size: 1.5rem; font-weight: 300;
+      color: var(--royal-mid); margin-bottom: 1rem;
+    }
+    .service-card p { font-size: 0.85rem; color: var(--text-mid); line-height: 1.6; }
+
+    /* ── SCRIPTURE STRIP ── */
+    #scripture {
+      background: var(--sky-soft);
+      padding: 70px 5vw;
+      text-align: center;
+    }
+    .scripture-content {
+      max-width: 720px; margin: 0 auto;
+    }
+    .scripture-content p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 3vw, 2.2rem);
+      font-weight: 600;
+      color: var(--royal-deep); line-height: 1.5;
+    }
+    .scripture-ref {
+      margin-top: 1.2rem;
+      font-size: 0.8rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--gold-accent); font-weight: 600;
+    }
+    .scripture-nav { display: flex; justify-content: center; gap: 0.5rem; margin-top: 1.8rem; }
+    .s-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--royal-light); opacity: 0.4; cursor: pointer;
+      transition: opacity 0.2s, background 0.2s;
+    }
+    .s-dot.active { opacity: 1; background: var(--royal); }
+
+    /* ── MISSION ── */
+    #mission { background: var(--royal-deep); padding: 100px 5vw; }
+    .mission-inner {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2px; background: rgba(63,111,192,0.2);
+    }
+    .mission-block {
+      background: var(--royal-deep);
+      padding: 50px 36px;
+    }
+    .mission-block .tag { color: var(--gold-accent); border-left-color: var(--gold-accent); }
+    .mission-block h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--white); margin: 1rem 0 1.2rem;
+    }
+    .mission-block p { color: rgba(214,228,255,0.7); font-size: 0.9rem; line-height: 1.8; }
+    .mission-block .mission-icon { font-size: 2.2rem; margin-bottom: 0.8rem; }
+
+    /* ── JOIN / CTA ── */
+    #join {
+      background: var(--sky-soft);
+      padding: 90px 5vw;
+      text-align: center;
+    }
+    #join .sec-title { font-size: clamp(2rem, 4.5vw, 3.4rem); }
+    #join p {
+      margin: 1rem auto 2.5rem;
+      max-width: 500px; color: var(--text-mid);
+      line-height: 1.8; font-size: 1rem;
+    }
+    .btn-royal {
+      background: var(--royal); color: var(--white);
+      padding: 16px 44px; border-radius: 2px;
+      font-weight: 600; font-size: 0.9rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-royal:hover { background: var(--royal-mid); transform: translateY(-2px); }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--white);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-info .sec-title { margin-bottom: 2rem; }
+    .c-item { display: flex; gap: 16px; margin-bottom: 1.8rem; align-items: flex-start; }
+    .c-ico {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--sky-soft); display: flex; align-items: center;
+      justify-content: center; font-size: 1.1rem; flex-shrink: 0;
+    }
+    .c-lbl {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--royal-mid); margin-bottom: 4px;
+    }
+    .c-val { font-size: 0.95rem; color: var(--text); line-height: 1.5; }
+
+    .contact-form {
+      background: var(--off-white);
+      border-radius: 4px; padding: 44px;
+      border-top: 3px solid var(--royal);
+    }
+    .contact-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 700;
+      color: var(--royal-deep); margin-bottom: 1.5rem;
+    }
+    .fg { margin-bottom: 1.2rem; }
+    .fg label {
+      display: block; font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 6px;
+    }
+    .fg input, .fg textarea, .fg select {
+      width: 100%; padding: 12px 14px;
+      border: 1.5px solid #C8D8F0;
+      border-radius: 3px; font-family: inherit; font-size: 0.92rem;
+      background: var(--white); color: var(--text);
+      transition: border-color 0.2s;
+    }
+    .fg input:focus, .fg textarea:focus, .fg select:focus {
+      outline: none; border-color: var(--royal);
+    }
+    .fg textarea { height: 110px; resize: vertical; }
+    .btn-form {
+      background: var(--royal); color: var(--white);
+      border: none; width: 100%; padding: 14px;
+      border-radius: 3px; font-family: inherit;
+      font-size: 0.9rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s;
+    }
+    .btn-form:hover { background: var(--royal-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--royal-deep);
+      padding: 70px 5vw 30px;
+      border-top: 3px solid var(--gold-accent);
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 60px; margin-bottom: 50px;
+    }
+    .footer-brand .f-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 700;
+      color: var(--white); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .footer-brand p {
+      color: rgba(214,228,255,0.5); font-size: 0.85rem;
+      line-height: 1.7; max-width: 280px;
+    }
+    .footer-col h4 {
+      color: var(--gold-accent); font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 0.7rem; }
+    .footer-col ul li a {
+      color: rgba(214,228,255,0.5); text-decoration: none;
+      font-size: 0.85rem; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--sky); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding-top: 24px;
+      display: flex; justify-content: space-between;
+      align-items: center; flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-bottom p { color: rgba(214,228,255,0.3); font-size: 0.78rem; }
+    .footer-badge {
+      display: flex; align-items: center; gap: 8px;
+      color: var(--gold-accent); font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes arrowBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+      50%       { transform: rotate(45deg) translateY(5px); opacity: 0.8; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      #welcome, #sabbath, #contact { grid-template-columns: 1fr; gap: 40px; }
+      .beliefs-grid, .mission-inner { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .nav-links { display: none; }
+      .sabbath-facts { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-cross">✝</div>
+    <div class="nav-name">
+      Sabbat Church of God Most High
+      <span>Worshipping in Spirit &amp; in Truth</span>
+    </div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#welcome">About</a></li>
+    <li><a href="#beliefs">Beliefs</a></li>
+    <li><a href="#sabbath">The Sabbath</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#join" class="nav-cta">Join Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-emblem">✝</div>
+    <div class="hero-verse">"Holy, Holy, Holy, is the Lord God Almighty"</div>
+    <h1>Sabbat Church of<br/><em>God Most High</em></h1>
+    <div class="hero-divider"></div>
+    <p class="sub">A community of believers dedicated to worshipping the Lord Jesus Christ, observing the Holy Sabbath, and teaching the Truth of God to all people.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn-white">Join Our Services</a>
+      <a href="#welcome" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- WELCOME -->
+<section id="welcome">
+  <div class="welcome-text">
+    <div class="tag">Welcome</div>
+    <h2 class="sec-title">A House of <em>Prayer</em> for All People</h2>
+    <p>Sabbat Church of God Most High is a congregation built on the foundation of Jesus Christ — dedicated to making the Lord known as the Divine Saviour and persuading all to become His disciples.</p>
+    <p>We are a Bible-believing, Sabbath-observing community. We gather each week to worship, pray, study the Word of God, and grow together in faith. All are welcome to come as they are and encounter the living God.</p>
+    <p>Our supreme aim is to teach the Truth of God faithfully, equipping every member to walk in obedience, love, and purpose according to the Scriptures.</p>
+  </div>
+  <div class="welcome-quote">
+    <blockquote>
+      "Make the Lord Jesus Christ known to all men as the Divine Saviour — persuade them to become disciples of Christ."
+    </blockquote>
+    <cite>— Our Founding Purpose</cite>
+  </div>
+</section>
+
+<!-- BELIEFS -->
+<section id="beliefs">
+  <div class="tag">Core Beliefs</div>
+  <h2 class="sec-title">What We <em>Believe</em></h2>
+  <div class="beliefs-grid">
+    <div class="belief-card">
+      <div class="belief-icon">📖</div>
+      <h3>The Holy Bible</h3>
+      <p>We believe the Bible is the inspired, infallible Word of God — our supreme authority for faith, doctrine, and godly living in every area of life.</p>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">✝️</div>
+      <h3>Jesus Christ</h3>
+      <p>We confess Jesus Christ as Lord and Saviour — fully God, fully man — who died for our sins, rose from the dead, and will return in glory.</p>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🕊️</div>
+      <h3>The Holy Spirit</h3>
+      <p>We believe in the Holy Spirit who convicts, converts, and dwells within every true believer, empowering a life of holiness and service.</p>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🌙</div>
+      <h3>The Holy Sabbath</h3>
+      <p>We observe the seventh-day Sabbath as commanded by God — a sacred day of rest, worship, and communion with the Most High, set apart from the beginning of creation.</p>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🙏</div>
+      <h3>Repentance &amp; Baptism</h3>
+      <p>We preach repentance, faith in Christ, and baptism as the doorway into a new life — dead to sin and alive to God through Jesus Christ our Lord.</p>
+    </div>
+    <div class="belief-card">
+      <div class="belief-icon">🌍</div>
+      <h3>The Great Commission</h3>
+      <p>We are called to go into all the world, making disciples of every nation — teaching them to observe all that Christ commanded us.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SABBATH TEACHING -->
+<section id="sabbath">
+  <div class="sabbath-text">
+    <div class="tag">The Holy Sabbath</div>
+    <h2 class="sec-title">Why We <em>Keep</em> the Sabbath</h2>
+    <p>From the very beginning, God hallowed the seventh day as a sign between Himself and His people. The Sabbath is not a burden — it is a blessing, a delight, and a foretaste of eternal rest in God Most High.</p>
+    <p>We observe the Sabbath from sunset Friday to sunset Saturday, following the pattern established at creation, confirmed in the Ten Commandments, and kept by Jesus Christ Himself during His earthly ministry.</p>
+  </div>
+  <div class="sabbath-facts">
+    <div class="sab-fact">
+      <div class="ico">📅</div>
+      <h4>Seventh Day</h4>
+      <p>Saturday — the biblical seventh day of the week, set apart by God at creation.</p>
+    </div>
+    <div class="sab-fact">
+      <div class="ico">🌅</div>
+      <h4>Sunset to Sunset</h4>
+      <p>Observed from Friday sunset to Saturday sunset, as established in Genesis.</p>
+    </div>
+    <div class="sab-fact">
+      <div class="ico">⛪</div>
+      <h4>Corporate Worship</h4>
+      <p>We gather as a congregation each Sabbath for worship, teaching, and fellowship.</p>
+    </div>
+    <div class="sab-fact">
+      <div class="ico">📜</div>
+      <h4>God's Commandment</h4>
+      <p>"Remember the Sabbath day, to keep it holy." — Exodus 20:8</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div class="tag">Service Times</div>
+    <h2 class="sec-title">Gather With <em>Us</em></h2>
+    <p>We invite you to join us as we worship God Most High together. All are welcome at every service — whether you are visiting for the first time or returning to faith.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-day">Friday Evening</div>
+      <h3>Sabbath Opening Service</h3>
+      <div class="service-time">6:00 PM</div>
+      <p>We welcome the holy Sabbath with songs of praise, prayer, and a short devotional message as the sun sets.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-day">Saturday Morning</div>
+      <h3>Main Sabbath Service</h3>
+      <div class="service-time">9:30 AM</div>
+      <p>Our principal weekly gathering — featuring worship, Scripture readings, tithes and offerings, and the preaching of God's Word.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-day">Saturday Afternoon</div>
+      <h3>Bible Study &amp; Fellowship</h3>
+      <div class="service-time">2:00 PM</div>
+      <p>Deep dive into the Scriptures in a smaller, discussion-based setting. Open to all who desire to grow in knowledge of the Truth.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-day">Midweek</div>
+      <h3>Prayer &amp; Fasting</h3>
+      <div class="service-time">Wednesday 6:00 PM</div>
+      <p>A mid-week gathering dedicated to intercessory prayer, fasting, and seeking the face of God Most High for our families and nation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCRIPTURE CAROUSEL -->
+<section id="scripture">
+  <div class="scripture-content" id="scriptureBox">
+    <p id="scriptureText">"Remember the Sabbath day, to keep it holy. Six days you shall labour and do all your work, but the seventh day is a Sabbath to the Lord your God."</p>
+    <div class="scripture-ref" id="scriptureRef">— Exodus 20:8–10</div>
+    <div class="scripture-nav" id="scriptureDots"></div>
+  </div>
+</section>
+
+<!-- MISSION / VISION / VALUES -->
+<section id="mission">
+  <div class="mission-inner">
+    <div class="mission-block">
+      <div class="mission-icon">🎯</div>
+      <div class="tag">Our Mission</div>
+      <h2>Make Christ Known to All</h2>
+      <p>To make the Lord Jesus Christ known to all people as the Divine Saviour — persuading them to become His disciples and teaching the Truth of God without compromise or fear.</p>
+    </div>
+    <div class="mission-block">
+      <div class="mission-icon">👁️</div>
+      <div class="tag">Our Vision</div>
+      <h2>A Holy Nation, a Royal Priesthood</h2>
+      <p>To build a thriving body of Spirit-filled, Sabbath-keeping believers who shine as lights in the world — living holy, loving deeply, and serving faithfully in every community.</p>
+    </div>
+    <div class="mission-block">
+      <div class="mission-icon">💎</div>
+      <div class="tag">Our Values</div>
+      <h2>Truth · Holiness · Love · Unity</h2>
+      <p>We are committed to Biblical truth, personal holiness, Christ-like love for all people, and the unity of the body of believers across all backgrounds and nations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN CTA -->
+<section id="join">
+  <div class="tag" style="display:inline-block">You Are Welcome</div>
+  <h2 class="sec-title">Come and Worship With Us</h2>
+  <p>Whether you are seeking God for the first time, returning to faith, or looking for a new church home — the doors of Sabbat Church of God Most High are open wide for you.</p>
+  <a href="#contact" class="btn-royal">Find Us &amp; Connect</a>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="tag">Get In Touch</div>
+    <h2 class="sec-title">Visit or <em>Contact</em> Us</h2>
+    <div class="c-item">
+      <div class="c-ico">📍</div>
+      <div>
+        <div class="c-lbl">Location</div>
+        <div class="c-val">Sabbat Church of God Most High<br/>Ghana, West Africa</div>
+      </div>
+    </div>
+    <div class="c-item">
+      <div class="c-ico">⏰</div>
+      <div>
+        <div class="c-lbl">Sabbath Service</div>
+        <div class="c-val">Saturday 9:30 AM<br/>Friday Evening 6:00 PM (Opening)</div>
+      </div>
+    </div>
+    <div class="c-item">
+      <div class="c-ico">🙏</div>
+      <div>
+        <div class="c-lbl">Prayer Line</div>
+        <div class="c-val">We pray with and for all who reach out.<br/>Contact us to request prayer.</div>
+      </div>
+    </div>
+    <div class="c-item">
+      <div class="c-ico">📧</div>
+      <div>
+        <div class="c-lbl">Enquiries</div>
+        <div class="c-val">Send us a message below and<br/>we will respond as soon as possible.</div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-form">
+    <h3>Send Us a Message</h3>
+    <div class="fg">
+      <label>Full Name</label>
+      <input type="text" placeholder="Your full name"/>
+    </div>
+    <div class="fg">
+      <label>Email Address</label>
+      <input type="email" placeholder="your@email.com"/>
+    </div>
+    <div class="fg">
+      <label>Subject</label>
+      <select>
+        <option>I want to visit the church</option>
+        <option>Prayer Request</option>
+        <option>Bible Study Enquiry</option>
+        <option>General Question</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label>Your Message</label>
+      <textarea placeholder="How can we help you? Write your message here..."></textarea>
+    </div>
+    <button class="btn-form" onclick="alert('God bless you! Your message has been received. We will be in touch shortly. 🙏')">Send Message</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="f-logo">✝ Sabbat Church of God Most High</div>
+      <p>A Bible-believing, Sabbath-keeping congregation committed to making Jesus Christ known to all people and teaching the uncompromised Truth of God.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#welcome">About Us</a></li>
+        <li><a href="#beliefs">Our Beliefs</a></li>
+        <li><a href="#sabbath">The Sabbath</a></li>
+        <li><a href="#services">Service Times</a></li>
+        <li><a href="#mission">Mission &amp; Vision</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Friday 6:00 PM</a></li>
+        <li><a href="#services">Saturday 9:30 AM</a></li>
+        <li><a href="#services">Bible Study 2:00 PM</a></li>
+        <li><a href="#services">Wednesday Prayer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Sabbat Church of God Most High. All rights reserved. Ghana, West Africa.</p>
+    <div class="footer-badge">✝ Worshipping in Spirit &amp; in Truth</div>
+  </div>
+</footer>
+
+<script>
+  // Scripture carousel
+  const verses = [
+    { text: '"Remember the Sabbath day, to keep it holy. Six days you shall labour and do all your work, but the seventh day is a Sabbath to the Lord your God."', ref: '— Exodus 20:8–10' },
+    { text: '"Jesus said to him, I am the way, the truth, and the life. No one comes to the Father except through Me."', ref: '— John 14:6' },
+    { text: '"For God so loved the world that He gave His only begotten Son, that whoever believes in Him should not perish but have everlasting life."', ref: '— John 3:16' },
+    { text: '"If you love Me, keep My commandments."', ref: '— John 14:15' },
+    { text: '"Come to Me, all you who labour and are heavy laden, and I will give you rest."', ref: '— Matthew 11:28' },
+  ];
+  let cur = 0;
+  const textEl = document.getElementById('scriptureText');
+  const refEl = document.getElementById('scriptureRef');
+  const dotsEl = document.getElementById('scriptureDots');
+
+  verses.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 's-dot' + (i === 0 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(i) {
+    cur = i;
+    textEl.textContent = verses[i].text;
+    refEl.textContent = verses[i].ref;
+    document.querySelectorAll('.s-dot').forEach((d, j) => d.classList.toggle('active', j === i));
+  }
+
+  setInterval(() => goTo((cur + 1) % verses.length), 5000);
+</script>
+
+</body>
+</html>
